@@ -20,14 +20,17 @@ hr{
   margin-left: auto;
   margin-right: auto;
 }
-.card{
-  width: 380px;
+
+.card {
+  border:none;
 }
 
-.card-body{
-  background-color: lightgrey;
-
+.card .card-img-top {
+    width: 100%;
+    height: 20vh;
+    object-fit:contain;
 }
+
 
 .hoverimage::before{
   position: absolute;
