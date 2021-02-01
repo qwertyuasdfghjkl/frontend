@@ -1,0 +1,54 @@
+*{
+    margin:0;
+    padding:0;
+}
+
+body{
+    background-color: #f4f4f4;
+    font-size: 20px;
+}
+
+#mainHeader{
+    text-align: center;
+    margin-top: 5%;
+}
+
+p{
+    text-align: center;
+    color: darkslategrey;
+}
+
+.button{
+    background-color:limegreen;
+    color: white;
+    border:none;
+    padding: 15px;
+    border-radius: 20px;
+    
+
+}
+
+#my-form .btn{
+    text-align: center;
+}
+
+#my-form .form{
+    padding-bottom:10px;
+    display: block;
+}
+
+#my-form textarea{
+    overflow:hidden;
+}
+
+#my-form input[type="text"], #my-form textarea{
+	padding:8px;
+    width: 100%;
+}
+
+.error {
+    background: orangered;
+    color: #fff;
+    padding: 5px;
+    margin: 5px;
+  }

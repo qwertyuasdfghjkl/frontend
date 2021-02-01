@@ -1,0 +1,30 @@
+HTML
+https://www.youtube.com/watch?v=UB1O30fR-EE&ab_channel=TraversyMedia 
+https://www.w3schools.com/html/
+
+CSS
+https://www.youtube.com/watch?v=yfoY53QXEnI&ab_channel=TraversyMedia 
+https://www.w3schools.com/css/default.asp
+
+JS
+https://www.youtube.com/watch?v=hdI2bqOjy3c&ab_channel=TraversyMedia 
+https://www.w3schools.com/js/default.asp
+
+FlexBox
+https://www.youtube.com/watch?v=JJSoEo8JSnc
+https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+
+bootstrap
+https://www.youtube.com/watch?v=ZfRn9VJzdGA
+https://www.w3schools.com/bootstrap4/bootstrap_get_started.asp
+
+xml httprequest
+https://www.w3schools.com/xml/xml_http.asp
+
+JS Event Loop
+https://www.youtube.com/watch?v=XzXIMZMN9k4&ab_channel=ComScienceSimplified
+
+JS Promises
+https://www.youtube.com/watch?v=gV7SaMIFyg8&ab_channel=ComScienceSimplified
+
+https://www.jotform.com/blog/html5-imports-import-html-files-into-html-files-83467/#:~:text=Embedding%20an%20HTML%20file%20is,comes%20to%20stylesheets%20and%20scripts

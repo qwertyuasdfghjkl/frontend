@@ -1,0 +1,38 @@
+*{
+    margin:0;
+    padding:0;
+}
+
+
+#container{
+    display: flex;
+}
+
+
+#mainHeader{
+    background-color: coral;
+    font-size: 70pt;
+    font-weight: bold;
+    padding-bottom: 20px;
+}
+
+#left{
+    background-color: pink;
+    flex:1;
+}
+
+#centre{
+    background-color: yellow;
+    flex:15;
+}
+
+#right{
+    background-color: cyan;
+    flex:3;
+    font-size: 100pt;
+}
+
+#mainFooter{
+    background-color: purple;
+    padding: 1% 0;
+}

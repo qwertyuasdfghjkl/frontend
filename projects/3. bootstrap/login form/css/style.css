@@ -1,0 +1,41 @@
+body{
+  background: linear-gradient(to right, #0964db, #48aef1);
+}
+
+.formBox{
+  border-radius:25px;
+}
+.btn{
+  padding: 20px;
+  border-radius: 30px;
+  font-weight: bold;
+}
+.main{
+  border-radius: 30px;
+  margin-bottom: 100px;
+}
+
+
+
+
+
+.btn-fb{
+
+  background: url('../images/download.png');
+  background-repeat: no-repeat;
+  background-position: 24% center;
+  background-size: 15px 20px;
+  background-color: #3B5998;
+  color: white;
+}
+
+.btn-google{
+  background: url('../images/google.png');
+  background-repeat: no-repeat;
+  background-position: 26% center;
+  background-size: 20px 20px;
+  background-color: #EA4335;
+  color: white !important ;
+  color: blue;
+
+}
