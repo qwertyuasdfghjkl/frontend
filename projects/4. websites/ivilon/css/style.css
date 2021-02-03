@@ -46,7 +46,7 @@ hr{
   margin-right: auto;
 }
 
-.card {
+.card2 {
   border:none;
 }
 
@@ -56,6 +56,18 @@ hr{
     object-fit:contain;
 }
 
+.card-img{
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  height: 200px;
+  width: 200px;
+}
+
+.square{
+  height: 310px !important;
+  width: 80%;
+}
 
 .hoverimage::before{
   position: absolute;
