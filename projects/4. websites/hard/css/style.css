@@ -1,0 +1,10 @@
+#mainImage{
+  background-image: url("../images/bg-index.jpg");
+  background-color: #868e96;
+  max-height: 500px;
+  margin-bottom: 40px;
+  background-position: center center;
+  position:relative;
+  background-size: 100%;
+
+}
