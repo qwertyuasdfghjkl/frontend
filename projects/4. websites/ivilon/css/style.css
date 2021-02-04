@@ -113,3 +113,11 @@ hr{
 .topmargin{
   margin-top: 40%;
 }
+
+#main-footer{
+  background: #2f2e2e;
+  color: #fff;
+  text-align: center;
+  padding: 80px;
+  margin-top: 40px;
+}
