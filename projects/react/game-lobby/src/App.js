@@ -55,8 +55,48 @@ function App() {
     ]
   )
 
-  
+  const changeColor = (compareId, compareColor) => {
+    const colorMatch = colors.filter((c) => c.color === compareColor)[0]
+    const idMatch = players.filter((p) => p.id === compareId)[0]
 
+    // if the player is already this color
+    if (colorMatch.used & idMatch.color === compareColor) {
+      alert('You have already chosen this color.')
+      return
+    }
+
+    // set used to false for players old color
+    if (idMatch.color !== "Choose Color" & !colorMatch.used) {
+      console.log(idMatch.color)
+      setColors(
+        colors.map((c) =>
+          c.color === idMatch.color ? {...c, used: false } : c
+        )
+      )
+    }
+
+    // if color not used
+    if (!colorMatch.used) {
+      // set new color used to true
+      setColors(
+        colors.map((c) =>
+          c.color === compareColor ? {...c, used: true } : c
+        )
+      )
+      // set players color
+      setPlayers(
+        players.map((p) => 
+          p.id === compareId ? {...p, color: compareColor} : p
+        )
+      )
+
+      // if the color is already picked
+    } else {
+      alert('Color is already chosen, Please choose a different colour')
+    }
+  }
+
+  
 
   const onClick = () => {
     console.log('click')
@@ -65,7 +105,7 @@ function App() {
   return (
     <div className="container">
       <Header />
-      <Players players={players} colors={colors}/>
+      <Players players={players} colors={colors} changeColor={changeColor}/>
       <Button onClick={onClick}/>
     </div>
   );

@@ -1,9 +1,9 @@
 import { useState } from 'react'
 
-const Player = ({ player, colors }) => {
+const Player = ({ player, colors, changeColor }) => {
   const[color, setColor] = useState('')
 
-  
+
 
   return (
     <div className='task'>
@@ -11,13 +11,13 @@ const Player = ({ player, colors }) => {
       <form className='add-form'>
         <div className='form-control'>
           <label>Choose Color</label>
-            <select value={color} onChange={(e) => setColor(e.target.value)}>
+            <select value={color} onChange={(e) => changeColor(player.id ,e.target.value)}>
               <option defaultValue={player.color}>{player.color}</option>
               {colors.map((eachColor) => (
                 <option key={eachColor.id2} value={eachColor.color}>{eachColor.color}</option>
                ))}
             </select>
-          <input type="submit" value="Submit" />
+
         </div>
       </form>
     </div>
