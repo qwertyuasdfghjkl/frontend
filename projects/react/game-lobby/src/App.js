@@ -1,7 +1,14 @@
+// style/color border
+// change true to false for old colors
+// how to use players in router
+
+import { BrowserRouter as Router, Route, useParams } from 'react-router-dom'
 import Header from './components/Header'
 import Button from './components/Button'
 import Players from './components/Players'
-import { useState} from 'react'
+import About from './components/About'
+import { useState } from 'react'
+import Context from './components/Context'
 
 
 function App() {
@@ -55,6 +62,24 @@ function App() {
     ]
   )
 
+
+
+  const falseUsed = (compareId, compareColor) => {
+    const colorMatch = colors.filter((c) => c.color === compareColor)[0]
+    const idMatch = players.filter((p) => p.id === compareId)[0]
+
+    // set used to false for players old color
+    if (idMatch.color !== "Choose Color" & !colorMatch.used) {
+      console.log(idMatch.color)
+      setColors(
+        colors.map((c) =>
+          c.color === idMatch.color ? {...c, used: false } : c
+        )
+      )
+    }
+  }
+
+
   const changeColor = (compareId, compareColor) => {
     const colorMatch = colors.filter((c) => c.color === compareColor)[0]
     const idMatch = players.filter((p) => p.id === compareId)[0]
@@ -95,20 +120,26 @@ function App() {
       alert('Color is already chosen, Please choose a different colour')
     }
   }
-
-  
-
-  const onClick = () => {
-    console.log('click')
-  }
   
   return (
-    <div className="container">
-      <Header />
-      <Players players={players} colors={colors} changeColor={changeColor}/>
-      <Button onClick={onClick}/>
-    </div>
+      <Router>
+        <div className="container">
+          <Header />
+          
+          <Route path='/' exact render={(props) => (
+            <>
+            <Players players={players} colors={colors} falseUsed={falseUsed} changeColor={changeColor}/>
+            <Button players={players}/>
+            </>
+            )}
+          />
+          {/* <Route exact path="/about" component={props => <About players={props.match.params.players}/>}/> */}
+          <Route path='/about' component={About}/>
+          
+        </div>
+      </Router>
   );
 }
 
 export default App;
+

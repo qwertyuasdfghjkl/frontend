@@ -1,18 +1,15 @@
-import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
-
-const Button = ({ onClick }) => {
-  
-
+const Button = ({ players }) => {
 
   return (
-    <button onClick={onClick} className='btn'>Start</button>
+    <div>
+      <Link className='btn' to={{pathname: "/about", state: {players}}}>Start</Link>
+      {console.log(players)}
+    </div>
   )
 }
 
-Button.propTypes = {
-  onClick: PropTypes.func,
-}
 
 
 export default Button
