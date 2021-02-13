@@ -63,23 +63,6 @@ function App() {
   )
 
 
-
-  const falseUsed = (compareId, compareColor) => {
-    const colorMatch = colors.filter((c) => c.color === compareColor)[0]
-    const idMatch = players.filter((p) => p.id === compareId)[0]
-
-    // set used to false for players old color
-    if (idMatch.color !== "Choose Color" & !colorMatch.used) {
-      console.log(idMatch.color)
-      setColors(
-        colors.map((c) =>
-          c.color === idMatch.color ? {...c, used: false } : c
-        )
-      )
-    }
-  }
-
-
   const changeColor = (compareId, compareColor) => {
     const colorMatch = colors.filter((c) => c.color === compareColor)[0]
     const idMatch = players.filter((p) => p.id === compareId)[0]
@@ -92,10 +75,10 @@ function App() {
 
     // set used to false for players old color
     if (idMatch.color !== "Choose Color" & !colorMatch.used) {
-      console.log(idMatch.color)
+      // console.log(idMatch.color)
       setColors(
         colors.map((c) =>
-          c.color === idMatch.color ? {...c, used: false } : c
+          c.color === idMatch.color ? c.used = false : c
         )
       )
     }
@@ -128,7 +111,7 @@ function App() {
           
           <Route path='/' exact render={(props) => (
             <>
-            <Players players={players} colors={colors} falseUsed={falseUsed} changeColor={changeColor}/>
+            <Players players={players} colors={colors} changeColor={changeColor}/>
             <Button players={players}/>
             </>
             )}

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-const Player = ({ player, colors, falseUsed, changeColor }) => {
+const Player = ({ player, colors, changeColor }) => {
   const[color, setColor] = useState('')
 
 
@@ -11,7 +11,7 @@ const Player = ({ player, colors, falseUsed, changeColor }) => {
       <form className='add-form'>
         <div className='form-control'>
           <label>Choose Color</label>
-            <select value={color} onChange={(e) => falseUsed(player.id,e.target.value) & changeColor(player.id ,e.target.value)}>
+            <select value={color} onChange={(e) => changeColor(player.id ,e.target.value)}>
               <option defaultValue={player.color}>{player.color}</option>
               {colors.map((eachColor) => (
                 <option key={eachColor.id2} value={eachColor.color}>{eachColor.color}</option>
