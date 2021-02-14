@@ -1,5 +1,4 @@
 // style/color border
-// change true to false for old colors
 // how to use players in router
 
 import { BrowserRouter as Router, Route, useParams } from 'react-router-dom'
@@ -75,7 +74,6 @@ function App() {
 
     // set used to false for players old color
     if (idMatch.color !== "Choose Color" & !colorMatch.used) {
-      // console.log(idMatch.color)
       setColors(
         colors.map((c) =>
           c.color === idMatch.color ? c.used = false : c
@@ -117,7 +115,13 @@ function App() {
             )}
           />
           {/* <Route exact path="/about" component={props => <About players={props.match.params.players}/>}/> */}
-          <Route path='/about' component={About}/>
+          {/* <Route path='/about' component={About}/> */}
+          <Route path='/about' exact render={(props) => (
+            <>
+            <About players={players}></About>
+            </>
+          )}
+          />
           
         </div>
       </Router>
