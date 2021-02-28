@@ -1,13 +1,17 @@
-import Player from './Player'
+import Player from "./Player";
+import { usePlayers } from "./playerContext";
 
-const Players = ({ players, changeColors }) => {
+const Players = () => {
+  const players = usePlayers();
+  console.log(players);
+
   return (
     <>
       {players.map((player) => (
-        <Player key={player.id} player={player} changeColors={changeColors}/>
+        <Player key={player.id} player={player} />
       ))}
     </>
-  )
-}
+  );
+};
 
-export default Players
+export default Players;
