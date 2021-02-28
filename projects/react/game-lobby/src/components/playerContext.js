@@ -1,14 +1,14 @@
 import React, { useContext, useState } from "react";
 
-const playerContext = React.createContext();
-const playerUpdateContext = React.createContext();
+const Context = React.createContext();
+const UpdateContext = React.createContext();
 
 export function usePlayers() {
-  return useContext(playerContext);
+  return useContext(Context);
 }
 
 export const usePlayersUpdate = () => {
-  return useContext(playerUpdateContext);
+  return useContext(UpdateContext);
 };
 
 export function PlayerContext({ children }) {
@@ -63,10 +63,10 @@ export function PlayerContext({ children }) {
   };
 
   return (
-    <playerContext.Provider value={players}>
-      <playerUpdateContext.Provider value={changeColors}>
+    <Context.Provider value={players}>
+      <UpdateContext.Provider value={changeColors}>
         {children}
-      </playerUpdateContext.Provider>
-    </playerContext.Provider>
+      </UpdateContext.Provider>
+    </Context.Provider>
   );
 }
