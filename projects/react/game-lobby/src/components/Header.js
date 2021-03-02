@@ -1,8 +1,10 @@
+import Box from "@material-ui/core/Box"
+
 const Header = ({ title }) => {
   return (
-    <header>
+    <Box>
       <h1 style={headingStyle}>{title}</h1>
-    </header>
+    </Box>
   );
 };
 
@@ -12,6 +14,7 @@ Header.defaultProps = {
 
 const headingStyle = {
   textAlign: "center",
+  margin: "25px 0px",
 };
 
 export default Header;

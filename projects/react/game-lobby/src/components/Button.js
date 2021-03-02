@@ -6,11 +6,9 @@ const ButtonAbout = () => {
   const players = usePlayers();
 
   return (
-    <Button variant="contained">
-      <Link className="btn" to={{ pathname: "/about", state: { players } }}>
+      <Link className="btn" to="/about">
         Start
       </Link>
-    </Button>
   );
 };
 

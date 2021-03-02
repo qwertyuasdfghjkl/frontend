@@ -1,16 +1,16 @@
 import Player from "./Player";
 import { usePlayers } from "./PlayerContext";
+import Grid from "@material-ui/core/Grid";
 
 const Players = () => {
   const players = usePlayers();
-  console.log(players);
 
   return (
-    <>
-      {players.map((player) => (
-        <Player key={player.id} player={player} />
-      ))}
-    </>
+    <Grid container spacing={2} justify="space-around">
+        {players.map((player) => (
+          <Player key={player.id} player={player} />
+        ))}
+    </Grid>
   );
 };
 
