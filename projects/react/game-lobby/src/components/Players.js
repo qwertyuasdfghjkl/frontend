@@ -1,5 +1,5 @@
 import Player from "./Player";
-import { usePlayers } from "./playerContext";
+import { usePlayers } from "./PlayerContext";
 
 const Players = () => {
   const players = usePlayers();

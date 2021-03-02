@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { usePlayersUpdate } from "./playerContext";
+import { usePlayersUpdate } from "./PlayerContext";
 
 const Player = ({ player }) => {
   const changeColors = usePlayersUpdate();

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { usePlayers } from "./playerContext";
+import { usePlayers } from "./PlayerContext";
 import Header from "./Header";
 
 const About = () => {
