@@ -1,0 +1,11 @@
+.player {
+  border: 2px solid black;
+}
+.cardContent {
+  border-bottom: 1px solid black;
+  padding: 5px 3em;
+}
+
+.colorForm {
+  width: 100%;
+}

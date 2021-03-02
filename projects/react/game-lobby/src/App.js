@@ -1,7 +1,7 @@
-import { BrowserRouter as Router, Route, useParams } from "react-router-dom";
+// import { BrowserRouter as Router, Route, useParams } from "react-router-dom";
 
-import Routes from "./components/Routes";
-import { PlayerContext } from "./components/PlayerContext";
+import Routes from "./components/Router/Routes";
+import { PlayerContext } from "./components/PlayerContext/PlayerContext";
 
 function App() {
   return (

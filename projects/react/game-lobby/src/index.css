@@ -4,13 +4,9 @@
   padding: 0;
 } */
 
-.container {
-  margin-top: 5em;
-  border: 1px solid black;
 
-}
 
-.btn {
+/* .btn {
   display: inline-block;
   background: black;
   color: white;
@@ -18,9 +14,9 @@
   margin: 10px;
   border-radius: 5px;
   text-decoration: none;
-}
+} */
 
-.player{
+/* .player{
   border: 2px solid black;
 }
 .cardContent {
@@ -30,7 +26,7 @@
 
 .colorForm{
   width: 100%;
-}
+} */
 
 /*
 
@@ -98,9 +94,6 @@
 */
 
 
- .form-control label {
-  display: block;
-}
 
 /*
 .form-control input {

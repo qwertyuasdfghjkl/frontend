@@ -1,14 +1,15 @@
 import { Link } from "react-router-dom";
-import { usePlayers } from "./PlayerContext";
+import { usePlayers } from "../PlayerContext/PlayerContext";
 import Button from "@material-ui/core/Button";
+import styles from "./Button.module.css";
 
 const ButtonAbout = () => {
   const players = usePlayers();
 
   return (
-      <Link className="btn" to="/about">
-        Start
-      </Link>
+    <Link className={styles.btn} to="/about">
+      Start
+    </Link>
   );
 };
 
