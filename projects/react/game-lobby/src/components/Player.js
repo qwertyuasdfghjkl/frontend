@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { usePlayersUpdate } from "./PlayerContext";
+import { COLORS, usePlayersUpdate } from "./PlayerContext";
 
 const Player = ({ player }) => {
   const changeColors = usePlayersUpdate();
@@ -16,11 +16,11 @@ const Player = ({ player }) => {
             onChange={(e) => changeColors(player.id, e.target.value)}
           >
             <option defaultValue={player.color}>{player.color}</option>
-            <option value={"blue"}>blue</option>
-            <option value={"red"}>red</option>
-            <option value={"green"}>green</option>
-            <option value={"yellow"}>yellow</option>
-            <option value={"purple"}>purple</option>
+            <option value={COLORS.blue}>blue</option>
+            <option value={COLORS.red}>red</option>
+            <option value={COLORS.green}>green</option>
+            <option value={COLORS.yellow}>yellow</option>
+            <option value={COLORS.purple}>purple</option>
           </select>
         </div>
       </form>
