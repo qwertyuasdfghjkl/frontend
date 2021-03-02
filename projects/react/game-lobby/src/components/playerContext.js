@@ -11,33 +11,35 @@ export const usePlayersUpdate = () => {
   return useContext(UpdateContext);
 };
 
+export const COLORS = ({ default : "", blue : "blue", red : "red", green : "green", yellow : "yellow", purple : "purple" })
+
 export function PlayerContext({ children }) {
   const [players, setPlayers] = useState([
     {
       id: 1,
       text: "P1",
-      color: "",
+      color: COLORS.default,
     },
     {
       id: 2,
       text: "P2",
-      color: "",
+      color: COLORS.default,
     },
     {
       id: 3,
       text: "P3",
-      color: "",
+      color: COLORS.default,
     },
     {
       id: 4,
       text: "P4",
-      color: "",
+      color: COLORS.default,
     },
   ]);
 
   const changeColors = (compareId, compareColor) => {
     const chosenPlayer = players.filter((p) => p.id === compareId)[0];
-    const usedColors = players.filter((p) => p.color !== "");
+    const usedColors = players.filter((p) => p.color !== COLORS.default);
     const colors = usedColors.map((c) => c.color);
     console.log("adsf", colors);
 
