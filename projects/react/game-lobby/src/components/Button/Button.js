@@ -7,9 +7,11 @@ const ButtonAbout = () => {
   const players = usePlayers();
 
   return (
-    <Link className={styles.btn} to="/about">
-      Start
-    </Link>
+    <>
+      <Link className={styles.btn} to="/about">
+        Start
+      </Link>
+    </>
   );
 };
 

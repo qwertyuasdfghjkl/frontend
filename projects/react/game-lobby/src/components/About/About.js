@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { usePlayers } from "../PlayerContext/PlayerContext";
 import Header from "../Header/Header";
+import Login from "../Login/Login"
 import { Box, Container, Button } from "@material-ui/core";
 import styles from "./About.module.css";
 
@@ -10,6 +11,7 @@ const About = () => {
   return (
     <Container maxWidth="sm" className={styles.container}>
       <Header />
+      <Login />
       <Box>
         {players.map((player) => (
           <h4 key={player.id}>
