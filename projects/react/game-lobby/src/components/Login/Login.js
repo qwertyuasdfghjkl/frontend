@@ -10,6 +10,9 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import styles from "./Login.module.css";
 import Box from "@material-ui/core/Box";
 
+import { auth } from "../../firebase";
+import { Typography } from "@material-ui/core";
+
 export default function FormDialog() {
   // state for login form
   const [loginOpen, setLoginOpen] = useState(false);
@@ -35,40 +38,78 @@ export default function FormDialog() {
   };
 
   // state for email/password
-  const [emailState, setEmail] = useState("")
+  const [emailState, setEmail] = useState("");
 
-  const [passwordState, setPassword] = useState("")
+  const [passwordState, setPassword] = useState("");
 
   // clear values
   const clearState = () => {
-    setEmail("")
-    setPassword("")
-  }
+    setEmail("");
+    setPassword("");
+    setErrorMsg("");
+  };
 
   // update values
   const onChangeEmail = (e) => {
-    setEmail(e.target.value)
-  }
+    setEmail(e.target.value);
+  };
   const onChangePassword = (e) => {
-    setPassword(e.target.value)
-  }
+    setPassword(e.target.value);
+  };
 
+  // error message
+  const [errorMsg, setErrorMsg] = useState("");
   // login/signup
 
   const handleLogin = (e) => {
     const email = emailState;
     const password = passwordState;
-    console.log("email", email, "password:", password)
-  }
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then((user) => {
+        console.log("logged in", user);
+        handleLoginClose();
+      })
+      .catch((error) => {
+        setErrorMsg(error.message);
+      });
+  };
 
   const handleSignup = (e) => {
     const email = emailState;
     const password = passwordState;
-    console.log("email", email, "password:", password)
-  }
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then((user) => {
+        console.log("registered", user);
+        handleSignupClose();
+      })
+      .catch((error) => {
+        setErrorMsg(error.message);
+      });
+  };
 
-  return (
-    <div>
+  // logout
+  const handleLogout = () => {
+    auth.signOut().then(() => console.log("Logged out"));
+  };
+
+  // auth listener
+  const [authState, setAuthState] = useState(false);
+  const [loginUser, setLoginUser] = useState("");
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      setAuthState(true);
+      setLoginUser("Logged in as: " + user.email);
+    } else {
+      setAuthState(false);
+      setLoginUser("Please login or sign up to save colors");
+    }
+  });
+
+  var logButtons;
+  if (!authState) {
+    logButtons = (
       <Box display="flex" flexDirection="row-reverse">
         <Box order={2}>
           <Button
@@ -89,7 +130,27 @@ export default function FormDialog() {
           </Button>
         </Box>
       </Box>
+    );
+  } else {
+    logButtons = (
+      <Box display="flex" flexDirection="row-reverse">
+        <Box>
+          <Button
+            variant="outlined"
+            className={styles.btn}
+            onClick={handleLogout}
+          >
+            Logout
+          </Button>
+        </Box>
+      </Box>
+    );
+  }
 
+  return (
+    <div>
+      {logButtons}
+      <Typography className={styles.text}>{loginUser}</Typography>
       <Dialog
         open={loginOpen}
         onClose={handleLoginClose}
@@ -125,7 +186,7 @@ export default function FormDialog() {
             Cancel
           </Button>
         </DialogActions>
-        <p className="error"></p>
+        <Typography className={styles.error}>{errorMsg}</Typography>
       </Dialog>
 
       <Dialog
@@ -163,7 +224,7 @@ export default function FormDialog() {
             Cancel
           </Button>
         </DialogActions>
-        <p className="error"></p>
+        <Typography className={styles.error}>{errorMsg}</Typography>
       </Dialog>
     </div>
   );
