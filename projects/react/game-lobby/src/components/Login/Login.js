@@ -74,41 +74,41 @@ export default function FormDialog() {
       .signInWithEmailAndPassword(email, password)
       .then((user) => {
         handleLoginClose();
-        axios
-          .get(
-            `https://us-central1-game-lobby-13650.cloudfunctions.net/getColor?uid=${user.user.uid}`
-          )
-          .then((response) => {
-            //   setPlayers(
-            //     players.map((p) => {
-            //       console.log(p)
-            //       // p.color = response.data.p + p.id
-            //     }
+        // axios
+        //   .get(
+        //     `https://us-central1-game-lobby-13650.cloudfunctions.net/getColor?uid=${user.user.uid}`
+        //   )
+        //   .then((response) => {
+        //     //   setPlayers(
+        //     //     players.map((p) => {
+        //     //       console.log(p)
+        //     //       // p.color = response.data.p + p.id
+        //     //     }
 
-            // ));
-            setPlayers([
-              {
-                id: 1,
-                text: "P1",
-                color: response.data.p1,
-              },
-              {
-                id: 2,
-                text: "P2",
-                color: response.data.p2,
-              },
-              {
-                id: 3,
-                text: "P3",
-                color: response.data.p3,
-              },
-              {
-                id: 4,
-                text: "P4",
-                color: response.data.p4,
-              },
-            ]);
-          });
+        //     // ));
+        //     setPlayers([
+        //       {
+        //         id: 1,
+        //         text: "P1",
+        //         color: response.data.p1,
+        //       },
+        //       {
+        //         id: 2,
+        //         text: "P2",
+        //         color: response.data.p2,
+        //       },
+        //       {
+        //         id: 3,
+        //         text: "P3",
+        //         color: response.data.p3,
+        //       },
+        //       {
+        //         id: 4,
+        //         text: "P4",
+        //         color: response.data.p4,
+        //       },
+        //     ]);
+        //   });
       })
       .catch((error) => {
         setErrorMsg(error.message);
