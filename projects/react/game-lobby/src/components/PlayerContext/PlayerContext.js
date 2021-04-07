@@ -1,4 +1,5 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
+import { auth } from "../../firebase";
 
 const Context = React.createContext();
 const UpdateContext = React.createContext();
@@ -70,8 +71,25 @@ export function PlayerContext({ children }) {
     }
   };
 
+  const [authState, setAuthState] = useState(false);
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      setAuthState(true);
+    } else {
+      setAuthState(false);
+    }
+  });
+
+  useEffect(() => {
+    if (authState) {
+      console.log("logged in");
+    } else {
+      console.log("logged out");
+    }
+  });
+
   return (
-    <Context.Provider value={players}>
+    <Context.Provider value={{ players, setPlayers }}>
       <UpdateContext.Provider value={changeColors}>
         {children}
       </UpdateContext.Provider>

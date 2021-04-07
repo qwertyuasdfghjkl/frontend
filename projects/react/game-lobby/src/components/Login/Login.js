@@ -9,9 +9,14 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import styles from "./Login.module.css";
 import Box from "@material-ui/core/Box";
+import { Typography } from "@material-ui/core";
 
 import { auth } from "../../firebase";
-import { Typography } from "@material-ui/core";
+import { func } from "../../firebase";
+import { storage } from "../../firebase";
+import { usePlayers } from "../PlayerContext/PlayerContext";
+
+import axios from "axios";
 
 export default function FormDialog() {
   // state for login form
@@ -59,16 +64,51 @@ export default function FormDialog() {
 
   // error message
   const [errorMsg, setErrorMsg] = useState("");
-  // login/signup
 
+  const { players, setPlayers } = usePlayers();
+  // login/signup
   const handleLogin = (e) => {
     const email = emailState;
     const password = passwordState;
     auth
       .signInWithEmailAndPassword(email, password)
       .then((user) => {
-        console.log("logged in", user);
         handleLoginClose();
+        axios
+          .get(
+            `https://us-central1-game-lobby-13650.cloudfunctions.net/getColor?uid=${user.user.uid}`
+          )
+          .then((response) => {
+            //   setPlayers(
+            //     players.map((p) => {
+            //       console.log(p)
+            //       // p.color = response.data.p + p.id
+            //     }
+
+            // ));
+            setPlayers([
+              {
+                id: 1,
+                text: "P1",
+                color: response.data.p1,
+              },
+              {
+                id: 2,
+                text: "P2",
+                color: response.data.p2,
+              },
+              {
+                id: 3,
+                text: "P3",
+                color: response.data.p3,
+              },
+              {
+                id: 4,
+                text: "P4",
+                color: response.data.p4,
+              },
+            ]);
+          });
       })
       .catch((error) => {
         setErrorMsg(error.message);
@@ -83,15 +123,24 @@ export default function FormDialog() {
       .then((user) => {
         console.log("registered", user);
         handleSignupClose();
+        // axios.post(`https://us-central1-game-lobby-13650.cloudfunctions.net/setColors?
+        // `)
       })
       .catch((error) => {
         setErrorMsg(error.message);
       });
   };
-
   // logout
-  const handleLogout = () => {
-    auth.signOut().then(() => console.log("Logged out"));
+  const handleLogout = async () => {
+    const callSet = func.httpsCallable("callSet");
+
+    //await callSet({
+    // p1: JSON.stringify(players[0].color),
+    //  p2: JSON.stringify(players[1].color),
+    // p3: JSON.stringify(players[2].color),
+    //  p4: JSON.stringify(players[3].color),
+    // });
+    await auth.signOut().then(() => window.location.reload());
   };
 
   // auth listener
@@ -106,6 +155,13 @@ export default function FormDialog() {
       setLoginUser("Please login or sign up to save colors");
     }
   });
+
+  // const players = usePlayers();
+  // useEffect(() => {
+  //   if (authState) {
+  //     // get here
+  //   }
+  // })
 
   var logButtons;
   if (!authState) {
@@ -148,7 +204,7 @@ export default function FormDialog() {
   }
 
   return (
-    <div>
+    <>
       {logButtons}
       <Typography className={styles.text}>{loginUser}</Typography>
       <Dialog
@@ -226,6 +282,6 @@ export default function FormDialog() {
         </DialogActions>
         <Typography className={styles.error}>{errorMsg}</Typography>
       </Dialog>
-    </div>
+    </>
   );
 }
