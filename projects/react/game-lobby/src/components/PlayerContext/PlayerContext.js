@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useContext, useState, useEffect } from "react";
 import { auth } from "../../firebase";
 
@@ -64,6 +65,18 @@ export function PlayerContext({ children }) {
           p.id === compareId ? { ...p, color: compareColor } : p
         )
       );
+
+      // check if logged in, if so, axios post
+      if (authState) {
+        axios
+          .post(
+            "https://us-central1-game-lobby-13650.cloudfunctions.net/setColor",
+            { uid: uid, playersHttp: players }
+          )
+          .then((response) => {
+            console.log(response.data);
+          });
+      }
     }
     // if color is already used
     else {
@@ -72,24 +85,61 @@ export function PlayerContext({ children }) {
   };
 
   const [authState, setAuthState] = useState(false);
+  const [uid, setUid] = useState("");
   auth.onAuthStateChanged((user) => {
     if (user) {
       setAuthState(true);
+      setUid(user.uid);
     } else {
       setAuthState(false);
+      setUid("");
     }
   });
 
   useEffect(() => {
     if (authState) {
-      console.log("logged in");
+      axios
+        .get(
+          `https://us-central1-game-lobby-13650.cloudfunctions.net/getColor?uid=${uid}`
+        )
+        .then((response) => {
+          //   setPlayers(
+          //     players.map((p) => {
+          //       console.log(p)
+          //       // p.color = response.data.p + p.id
+          //     }
+
+          // ));
+          setPlayers([
+            {
+              id: 1,
+              text: "P1",
+              color: response.data.p1,
+            },
+            {
+              id: 2,
+              text: "P2",
+              color: response.data.p2,
+            },
+            {
+              id: 3,
+              text: "P3",
+              color: response.data.p3,
+            },
+            {
+              id: 4,
+              text: "P4",
+              color: response.data.p4,
+            },
+          ]);
+        });
     } else {
-      console.log("logged out");
+      console.log("logged out, please sign in to save colors");
     }
   });
 
   return (
-    <Context.Provider value={players}>
+    <Context.Provider value={{ players, setPlayers }}>
       <UpdateContext.Provider value={changeColors}>
         {children}
       </UpdateContext.Provider>

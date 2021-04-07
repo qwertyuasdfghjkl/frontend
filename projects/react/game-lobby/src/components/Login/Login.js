@@ -12,7 +12,6 @@ import Box from "@material-ui/core/Box";
 import { Typography } from "@material-ui/core";
 
 import { auth } from "../../firebase";
-import { func } from "../../firebase";
 import { storage } from "../../firebase";
 import { usePlayers } from "../PlayerContext/PlayerContext";
 
@@ -74,42 +73,42 @@ export default function FormDialog() {
       .signInWithEmailAndPassword(email, password)
       .then((user) => {
         handleLoginClose();
-        axios
-          .get(
-            `https://us-central1-game-lobby-13650.cloudfunctions.net/getColor?uid=${user.user.uid}`
-          )
-          .then((response) => {
-            //   setPlayers(
-            //     players.map((p) => {
-            //       console.log(p)
-            //       // p.color = response.data.p + p.id
-            //     }
+      //   axios
+      //     .get(
+      //       `https://us-central1-game-lobby-13650.cloudfunctions.net/getColor?uid=${user.user.uid}`
+      //     )
+      //     .then((response) => {
+      //       //   setPlayers(
+      //       //     players.map((p) => {
+      //       //       console.log(p)
+      //       //       // p.color = response.data.p + p.id
+      //       //     }
 
-            // ));
-            setPlayers([
-              {
-                id: 1,
-                text: "P1",
-                color: response.data.p1,
-              },
-              {
-                id: 2,
-                text: "P2",
-                color: response.data.p2,
-              },
-              {
-                id: 3,
-                text: "P3",
-                color: response.data.p3,
-              },
-              {
-                id: 4,
-                text: "P4",
-                color: response.data.p4,
-              },
-            ]);
-          });
-      })
+      //       // ));
+      //       setPlayers([
+      //         {
+      //           id: 1,
+      //           text: "P1",
+      //           color: response.data.p1,
+      //         },
+      //         {
+      //           id: 2,
+      //           text: "P2",
+      //           color: response.data.p2,
+      //         },
+      //         {
+      //           id: 3,
+      //           text: "P3",
+      //           color: response.data.p3,
+      //         },
+      //         {
+      //           id: 4,
+      //           text: "P4",
+      //           color: response.data.p4,
+      //         },
+      //       ]);
+      //     });
+       })
       .catch((error) => {
         setErrorMsg(error.message);
       });
@@ -132,14 +131,6 @@ export default function FormDialog() {
   };
   // logout
   const handleLogout = async () => {
-    const callSet = func.httpsCallable("callSet");
-
-    //await callSet({
-    // p1: JSON.stringify(players[0].color),
-    //  p2: JSON.stringify(players[1].color),
-    // p3: JSON.stringify(players[2].color),
-    //  p4: JSON.stringify(players[3].color),
-    // });
     await auth.signOut().then(() => window.location.reload());
   };
 
@@ -155,13 +146,6 @@ export default function FormDialog() {
       setLoginUser("Please login or sign up to save colors");
     }
   });
-
-  // const players = usePlayers();
-  // useEffect(() => {
-  //   if (authState) {
-  //     // get here
-  //   }
-  // })
 
   var logButtons;
   if (!authState) {
