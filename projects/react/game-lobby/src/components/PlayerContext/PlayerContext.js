@@ -84,62 +84,8 @@ export function PlayerContext({ children }) {
     }
   };
 
-  const [authState, setAuthState] = useState(false);
-  const [uid, setUid] = useState("");
-  auth.onAuthStateChanged((user) => {
-    if (user) {
-      setAuthState(true);
-      setUid(user.uid);
-    } else {
-      setAuthState(false);
-      setUid("");
-    }
-  });
-
-  useEffect(() => {
-    if (authState) {
-      axios
-        .get(
-          `https://us-central1-game-lobby-13650.cloudfunctions.net/getColor?uid=${uid}`
-        )
-        .then((response) => {
-          //   setPlayers(
-          //     players.map((p) => {
-          //       console.log(p)
-          //       // p.color = response.data.p + p.id
-          //     }
-
-          // ));
-          setPlayers([
-            {
-              id: 1,
-              text: "P1",
-              color: response.data.p1,
-            },
-            {
-              id: 2,
-              text: "P2",
-              color: response.data.p2,
-            },
-            {
-              id: 3,
-              text: "P3",
-              color: response.data.p3,
-            },
-            {
-              id: 4,
-              text: "P4",
-              color: response.data.p4,
-            },
-          ]);
-        });
-    } else {
-      console.log("logged out, please sign in to save colors");
-    }
-  });
-
   return (
-    <Context.Provider value={{ players, setPlayers }}>
+    <Context.Provider value={players}>
       <UpdateContext.Provider value={changeColors}>
         {children}
       </UpdateContext.Provider>

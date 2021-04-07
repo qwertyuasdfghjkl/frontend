@@ -3,7 +3,7 @@ import { usePlayers } from "../PlayerContext/PlayerContext";
 import Grid from "@material-ui/core/Grid";
 
 const Players = () => {
-  const {players, setPlayers} = usePlayers();
+  const players = usePlayers();
 
   return (
     <Grid container spacing={2} justify="space-around">
