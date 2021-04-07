@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useContext, useState, useEffect } from "react";
 import { auth } from "../../firebase";
 
@@ -65,24 +64,29 @@ export function PlayerContext({ children }) {
           p.id === compareId ? { ...p, color: compareColor } : p
         )
       );
-
-      // check if logged in, if so, axios post
-      if (authState) {
-        axios
-          .post(
-            "https://us-central1-game-lobby-13650.cloudfunctions.net/setColor",
-            { uid: uid, playersHttp: players }
-          )
-          .then((response) => {
-            console.log(response.data);
-          });
-      }
     }
     // if color is already used
     else {
       alert("Color is already chosen, Please choose a different colour");
     }
   };
+
+  const [authState, setAuthState] = useState(false);
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      setAuthState(true);
+    } else {
+      setAuthState(false);
+    }
+  });
+
+  useEffect(() => {
+    if (authState) {
+      console.log("logged in");
+    } else {
+      console.log("logged out");
+    }
+  });
 
   return (
     <Context.Provider value={players}>

@@ -109,8 +109,8 @@ export default function FormDialog() {
               },
             ]);
           });
-        })
-        .catch((error) => {
+      })
+      .catch((error) => {
         setErrorMsg(error.message);
       });
   };
