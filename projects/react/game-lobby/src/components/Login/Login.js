@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -73,42 +73,7 @@ export default function FormDialog() {
       .signInWithEmailAndPassword(email, password)
       .then((user) => {
         handleLoginClose();
-      //   axios
-      //     .get(
-      //       `https://us-central1-game-lobby-13650.cloudfunctions.net/getColor?uid=${user.user.uid}`
-      //     )
-      //     .then((response) => {
-      //       //   setPlayers(
-      //       //     players.map((p) => {
-      //       //       console.log(p)
-      //       //       // p.color = response.data.p + p.id
-      //       //     }
-
-      //       // ));
-      //       setPlayers([
-      //         {
-      //           id: 1,
-      //           text: "P1",
-      //           color: response.data.p1,
-      //         },
-      //         {
-      //           id: 2,
-      //           text: "P2",
-      //           color: response.data.p2,
-      //         },
-      //         {
-      //           id: 3,
-      //           text: "P3",
-      //           color: response.data.p3,
-      //         },
-      //         {
-      //           id: 4,
-      //           text: "P4",
-      //           color: response.data.p4,
-      //         },
-      //       ]);
-      //     });
-       })
+      })
       .catch((error) => {
         setErrorMsg(error.message);
       });
@@ -122,8 +87,15 @@ export default function FormDialog() {
       .then((user) => {
         console.log("registered", user);
         handleSignupClose();
-        // axios.post(`https://us-central1-game-lobby-13650.cloudfunctions.net/setColors?
-        // `)
+        const newPlayers = players.map((p) => p.color);
+        console.log("newPlayers", newPlayers[0]);
+        axios
+          .post(
+            `https://us-central1-game-lobby-13650.cloudfunctions.net/setColors?uid=${user.user.uid}&p1=${newPlayers[0]}&p2=${newPlayers[1]}&p3=${newPlayers[2]}&p4=${newPlayers[3]}`
+          )
+          .then((response) => {
+            console.log(response.data);
+          });
       })
       .catch((error) => {
         setErrorMsg(error.message);
@@ -137,15 +109,52 @@ export default function FormDialog() {
   // auth listener
   const [authState, setAuthState] = useState(false);
   const [loginUser, setLoginUser] = useState("");
-  auth.onAuthStateChanged((user) => {
-    if (user) {
-      setAuthState(true);
-      setLoginUser("Logged in as: " + user.email);
-    } else {
-      setAuthState(false);
-      setLoginUser("Please login or sign up to save colors");
-    }
-  });
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        setAuthState(true);
+        setLoginUser("Logged in as: " + user.email);
+        axios
+          .get(
+            `https://us-central1-game-lobby-13650.cloudfunctions.net/getColors?uid=${user.uid}`
+          )
+          .then((response) => {
+            //   setPlayers(
+            //     players.map((p) => {
+            //       console.log(p)
+            //       // p.color = response.data.p + p.id
+            //     }
+            // ));
+            setPlayers([
+              {
+                id: 1,
+                text: "P1",
+                color: response.data.p1,
+              },
+              {
+                id: 2,
+                text: "P2",
+                color: response.data.p2,
+              },
+              {
+                id: 3,
+                text: "P3",
+                color: response.data.p3,
+              },
+              {
+                id: 4,
+                text: "P4",
+                color: response.data.p4,
+              },
+            ]);
+          });
+      } else {
+        setAuthState(false);
+        setLoginUser("Please login or sign up to save colors");
+      }
+    });
+  }, []);
+  
 
   var logButtons;
   if (!authState) {

@@ -113,46 +113,46 @@ export function PlayerContext({ children }) {
     }
   });
 
-  useEffect(() => {
-    if (authState) {
-      axios
-        .get(
-          `https://us-central1-game-lobby-13650.cloudfunctions.net/getColor?uid=${uid}`
-        )
-        .then((response) => {
-          //   setPlayers(
-          //     players.map((p) => {
-          //       console.log(p)
-          //       // p.color = response.data.p + p.id
-          //     }
-          // ));
-          setPlayers([
-            {
-              id: 1,
-              text: "P1",
-              color: response.data.p1,
-            },
-            {
-              id: 2,
-              text: "P2",
-              color: response.data.p2,
-            },
-            {
-              id: 3,
-              text: "P3",
-              color: response.data.p3,
-            },
-            {
-              id: 4,
-              text: "P4",
-              color: response.data.p4,
-            },
-          ]);
-        });
-    } else {
-      console.log("logged out, please sign in to save colors");
-    }
-  });
+  // useEffect(() => {
+  //   if (authState) {
+  //     axios
+  //       .get(
+  //         `https://us-central1-game-lobby-13650.cloudfunctions.net/getColors?uid=${uid}`
+  //       )
+  //       .then((response) => {
+  //         //   setPlayers(
+  //         //     players.map((p) => {
+  //         //       console.log(p)
+  //         //       // p.color = response.data.p + p.id
+  //         //     }
+  //         // ));
+  //         setPlayers([
+  //           {
+  //             id: 1,
+  //             text: "P1",
+  //             color: response.data.p1,
+  //           },
+  //           {
+  //             id: 2,
+  //             text: "P2",
+  //             color: response.data.p2,
+  //           },
+  //           {
+  //             id: 3,
+  //             text: "P3",
+  //             color: response.data.p3,
+  //           },
+  //           {
+  //             id: 4,
+  //             text: "P4",
+  //             color: response.data.p4,
+  //           },
+  //         ]);
+  //       });
+  //   } else {
+  //     console.log("logged out, please sign in to save colors");
+  //   }
+  // });
 
   return (
     <Context.Provider value={{ players, setPlayers }}>
