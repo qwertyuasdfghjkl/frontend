@@ -65,17 +65,34 @@ export function PlayerContext({ children }) {
           p.id === compareId ? { ...p, color: compareColor } : p
         )
       );
-
       // check if logged in, if so, axios post
       if (authState) {
+        console.log("before post", players, uid);
+        const newPlayers = players.map((p) =>
+          p.id === compareId ? compareColor : p.color
+        );
+        console.log("newPlayers", newPlayers[0])
         axios
           .post(
-            "https://us-central1-game-lobby-13650.cloudfunctions.net/setColor",
-            { uid: uid, playersHttp: players }
+            `https://us-central1-game-lobby-13650.cloudfunctions.net/setColors?uid=${uid}&p1=${newPlayers[0]}&p2=${newPlayers[1]}&p3=${newPlayers[2]}&p4=${newPlayers[3]}`
           )
           .then((response) => {
+            //   setPlayers(
+            //     players.map((p) => {
+            //       console.log(p)
+            //       // p.color = response.data.p + p.id
+            //     }
+            // ));
             console.log(response.data);
           });
+        // axios
+        //   .post(
+        //     "https://us-central1-game-lobby-13650.cloudfunctions.net/postColors",
+        //     { uid: uid, playersHttp: players }
+        //   )
+        //   .then((response) => {
+        //     console.log(response.data);
+        //   });
       }
     }
     // if color is already used
@@ -108,7 +125,6 @@ export function PlayerContext({ children }) {
           //       console.log(p)
           //       // p.color = response.data.p + p.id
           //     }
-
           // ));
           setPlayers([
             {
