@@ -111,13 +111,28 @@ export default function FormDialog() {
   const [authState, setAuthState] = useState(false);
   const [loginUser, setLoginUser] = useState("");
   const [userInitial, setUserInitial] = useState("");
+  const [uid, setUid] = useState("");
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (user) {
         const initial = user.email.charAt(0).toUpperCase();
-        setUserInitial(initial)
+        setUserInitial(initial);
         setAuthState(true);
+        setUid(user.uid);
         setLoginUser("Logged in as: " + user.email);
+
+        var storageRef = storage.ref();
+        var imagesRef = storageRef.child("images");
+        imagesRef
+          .child(user.uid)
+          .getDownloadURL()
+          .then((urlDownload) => {
+            setUrl(urlDownload);
+          })
+          .catch((error) => {
+            setUrl("");
+          });
+
         axios
           .get(
             `https://us-central1-game-lobby-13650.cloudfunctions.net/getColors?uid=${user.uid}`
@@ -154,11 +169,52 @@ export default function FormDialog() {
           });
       } else {
         setAuthState(false);
+        setUrl("");
         setLoginUser("Please login or sign up to save colors");
+        setUid("");
+        setUserInitial("");
       }
     });
   }, []);
 
+  // cloud storage
+  const [image, setImage] = useState(null);
+  const [url, setUrl] = useState("");
+  const handleImage = (e) => {
+    if (e.target.files[0]) {
+      setImage(e.target.files[0]);
+    }
+  };
+  const handleUpload = () => {
+    const uploadTask = storage.ref(`images/${uid}`).put(image);
+    uploadTask.on(
+      "stage_changed",
+      (snapshot) => {},
+      (error) => {
+        console.log(error);
+      },
+      () => {
+        storage
+          .ref("images")
+          .child(uid)
+          .getDownloadURL()
+          .then((urlNew) => {
+            setUrl(urlNew);
+            console.log(url)
+          });
+      }
+    );
+  };
+
+  // changing photo
+  // var avatar;
+  // if (url !== "") {
+  //   avatar = <Avatar src={url}>{userInitial}</Avatar>;
+  // } else {
+  //   avatar = <Avatar src={url}>{userInitial}</Avatar>;
+  // }
+
+  // changing jsx because authState
   var logButtons;
   if (!authState) {
     logButtons = (
@@ -185,22 +241,44 @@ export default function FormDialog() {
     );
   } else {
     logButtons = (
-      <Box display="flex" flexDirection="row-reverse">
-        <Box order={1}>
-          <Button
-            variant="outlined"
-            className={styles.btn}
-            onClick={handleLogout}
-          >
-            Logout
-          </Button>
+      <>
+        <Box display="flex" flexDirection="row-reverse">
+          <Box order={1}>
+            <Button
+              size="small"
+              variant="outlined"
+              className={styles.btn}
+              onClick={handleLogout}
+            >
+              Logout
+            </Button>
+          </Box>
+          <Box order={2}>
+            <Avatar src={url}>{userInitial}</Avatar>
+            {console.log("asdf", url, userInitial)}
+            {/* <Avatar>{userInitial}</Avatar> */}
+          </Box>
+
+          <Box order={3} className={styles.uploadBtn}>
+            <Button
+              size="small"
+              variant="outlined"
+              className={styles.btn}
+              onClick={handleUpload}
+            >
+              Upload Photo
+            </Button>
+          </Box>
+          <Box order={4}>
+            <input type="file" onChange={handleImage} />
+          </Box>
         </Box>
-        <Box order={2}>
-          <Avatar>{userInitial}</Avatar>
-        </Box>
-      </Box>
+        <Box display="flex"></Box>
+      </>
     );
   }
+
+  // changing image
 
   return (
     <>
