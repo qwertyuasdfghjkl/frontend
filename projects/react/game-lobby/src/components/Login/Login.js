@@ -10,6 +10,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import styles from "./Login.module.css";
 import Box from "@material-ui/core/Box";
 import { Typography } from "@material-ui/core";
+import Avatar from "@material-ui/core/Avatar";
 
 import { auth } from "../../firebase";
 import { storage } from "../../firebase";
@@ -109,9 +110,12 @@ export default function FormDialog() {
   // auth listener
   const [authState, setAuthState] = useState(false);
   const [loginUser, setLoginUser] = useState("");
+  const [userInitial, setUserInitial] = useState("");
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (user) {
+        const initial = user.email.charAt(0).toUpperCase();
+        setUserInitial(initial)
         setAuthState(true);
         setLoginUser("Logged in as: " + user.email);
         axios
@@ -154,7 +158,6 @@ export default function FormDialog() {
       }
     });
   }, []);
-  
 
   var logButtons;
   if (!authState) {
@@ -183,7 +186,7 @@ export default function FormDialog() {
   } else {
     logButtons = (
       <Box display="flex" flexDirection="row-reverse">
-        <Box>
+        <Box order={1}>
           <Button
             variant="outlined"
             className={styles.btn}
@@ -191,6 +194,9 @@ export default function FormDialog() {
           >
             Logout
           </Button>
+        </Box>
+        <Box order={2}>
+          <Avatar>{userInitial}</Avatar>
         </Box>
       </Box>
     );
